@@ -1,0 +1,28 @@
+{
+  "id": "/",
+  "name": "پلنر جامع",
+  "short_name": "پلنر",
+  "description": "پلنر هفتگی، تقویم، تایم‌لاین، تایم‌شیت، هبیت ترکر، ردیاب مالی، پلنر تحصیلی و ارزیابی عملکرد",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "any",
+  "dir": "rtl",
+  "lang": "fa",
+  "background_color": "#f6f8f4",
+  "theme_color": "#15803d",
+  "categories": ["productivity", "lifestyle", "education", "finance"],
+  "icons": [
+    { "src": "/icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/icons/icon-256.png", "sizes": "256x256", "type": "image/png", "purpose": "any" },
+    { "src": "/icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "/icons/maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" },
+    { "src": "/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
+  ],
+  "shortcuts": [
+    { "name": "پلنر هفتگی", "url": "/planner", "icons": [{ "src": "/icons/icon-192.png", "sizes": "192x192" }] },
+    { "name": "هبیت ترکر", "url": "/habits", "icons": [{ "src": "/icons/icon-192.png", "sizes": "192x192" }] },
+    { "name": "ردیاب مالی", "url": "/budget", "icons": [{ "src": "/icons/icon-192.png", "sizes": "192x192" }] },
+    { "name": "تایم‌شیت", "url": "/timesheet", "icons": [{ "src": "/icons/icon-192.png", "sizes": "192x192" }] }
+  ]
+}

@@ -1,0 +1,195 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Vazirmatn", "Tahoma", "Segoe UI", system-ui, sans-serif;
+}
+
+/* =====================================================================
+   THEME SYSTEM
+   The UI is written with `emerald-*` utilities. We re-point those tokens
+   to the selected accent palette (data-theme) and remap them for dark
+   mode (data-mode="dark"). Semantic palettes (rose/amber/sky/violet) get
+   dark-friendly values too, and `.bg-white` becomes the dark surface.
+   ===================================================================== */
+
+/* ---------- Accent palettes (Tailwind reference values) ---------- */
+html,
+html[data-theme="emerald"] {
+  --a-50: #ecfdf5; --a-100: #d1fae5; --a-200: #a7f3d0; --a-300: #6ee7b7; --a-400: #34d399; --a-500: #10b981;
+  --a-600: #059669; --a-700: #047857; --a-800: #065f46; --a-900: #064e3b; --a-950: #022c22;
+}
+html[data-theme="teal"] {
+  --a-50: #f0fdfa; --a-100: #ccfbf1; --a-200: #99f6e4; --a-300: #5eead4; --a-400: #2dd4bf; --a-500: #14b8a6;
+  --a-600: #0d9488; --a-700: #0f766e; --a-800: #115e59; --a-900: #134e4a; --a-950: #042f2e;
+}
+html[data-theme="sky"] {
+  --a-50: #f0f9ff; --a-100: #e0f2fe; --a-200: #bae6fd; --a-300: #7dd3fc; --a-400: #38bdf8; --a-500: #0ea5e9;
+  --a-600: #0284c7; --a-700: #0369a1; --a-800: #075985; --a-900: #0c4a6e; --a-950: #082f49;
+}
+html[data-theme="indigo"] {
+  --a-50: #eef2ff; --a-100: #e0e7ff; --a-200: #c7d2fe; --a-300: #a5b4fc; --a-400: #818cf8; --a-500: #6366f1;
+  --a-600: #4f46e5; --a-700: #4338ca; --a-800: #3730a3; --a-900: #312e81; --a-950: #1e1b4b;
+}
+html[data-theme="violet"] {
+  --a-50: #f5f3ff; --a-100: #ede9fe; --a-200: #ddd6fe; --a-300: #c4b5fd; --a-400: #a78bfa; --a-500: #8b5cf6;
+  --a-600: #7c3aed; --a-700: #6d28d9; --a-800: #5b21b6; --a-900: #4c1d95; --a-950: #2e1065;
+}
+html[data-theme="rose"] {
+  --a-50: #fff1f2; --a-100: #ffe4e6; --a-200: #fecdd3; --a-300: #fda4af; --a-400: #fb7185; --a-500: #f43f5e;
+  --a-600: #e11d48; --a-700: #be123c; --a-800: #9f1239; --a-900: #881337; --a-950: #4c0519;
+}
+html[data-theme="orange"] {
+  --a-50: #fff7ed; --a-100: #ffedd5; --a-200: #fed7aa; --a-300: #fdba74; --a-400: #fb923c; --a-500: #f97316;
+  --a-600: #ea580c; --a-700: #c2410c; --a-800: #9a3412; --a-900: #7c2d12; --a-950: #431407;
+}
+
+/* ---------- Light mode: tokens ---------- */
+html {
+  color-scheme: light;
+  --bg: color-mix(in oklab, var(--a-50) 45%, #f7f7f5);
+  --surface: #ffffff;
+  --track: color-mix(in oklab, var(--a-100) 70%, #ffffff);
+  --hero-a: var(--a-800);
+  --hero-b: var(--a-700);
+  --hero-c: var(--a-600);
+
+  --accent: var(--a-700);
+  --accent-mid: var(--a-500);
+  --accent-soft: var(--a-300);
+  --accent-light: var(--a-200);
+
+  --color-emerald-50: var(--a-50);
+  --color-emerald-100: var(--a-100);
+  --color-emerald-200: var(--a-200);
+  --color-emerald-300: var(--a-300);
+  --color-emerald-400: var(--a-400);
+  --color-emerald-500: var(--a-500);
+  --color-emerald-600: var(--a-600);
+  --color-emerald-700: var(--a-700);
+  --color-emerald-800: var(--a-800);
+  --color-emerald-900: var(--a-900);
+  --color-emerald-950: var(--a-950);
+}
+
+/* ---------- Dark mode: tokens ---------- */
+html[data-mode="dark"] {
+  color-scheme: dark;
+  --bg: color-mix(in oklab, var(--a-950) 22%, #0b0e0d);
+  --surface: color-mix(in oklab, var(--a-950) 16%, #141917);
+  --track: color-mix(in oklab, var(--a-900) 40%, var(--surface));
+  --hero-a: var(--a-950);
+  --hero-b: var(--a-900);
+  --hero-c: var(--a-800);
+
+  --accent: var(--a-500);
+  --accent-mid: var(--a-400);
+  --accent-soft: color-mix(in oklab, var(--a-700) 70%, var(--surface));
+  --accent-light: color-mix(in oklab, var(--a-800) 70%, var(--surface));
+
+  --color-emerald-50: color-mix(in oklab, var(--a-950) 55%, var(--surface));
+  --color-emerald-100: color-mix(in oklab, var(--a-900) 50%, var(--surface));
+  --color-emerald-200: color-mix(in oklab, var(--a-800) 60%, var(--surface));
+  --color-emerald-300: var(--a-800);
+  --color-emerald-400: var(--a-700);
+  --color-emerald-500: var(--a-500);
+  --color-emerald-600: var(--a-400);
+  --color-emerald-700: var(--a-600);
+  --color-emerald-800: var(--a-400);
+  --color-emerald-900: var(--a-200);
+  --color-emerald-950: var(--a-50);
+
+  /* neutral scale: flipped so text becomes light and soft backgrounds dark */
+  --color-slate-50: #1a211e;
+  --color-slate-100: #212927;
+  --color-slate-200: #2f3a36;
+  --color-slate-300: #556660;
+  --color-slate-400: #86958f;
+  --color-slate-500: #a3b0ab;
+  --color-slate-600: #bcc7c2;
+  --color-slate-700: #d2dad6;
+  --color-slate-800: #e6ebe8;
+  --color-slate-900: #f0f4f2;
+  --color-slate-950: #f8faf9;
+
+  /* semantic palettes: dark tints for -50/-100/-200, light text for -600+ */
+  --color-rose-50: color-mix(in oklab, #4c0519 55%, var(--surface));
+  --color-rose-100: color-mix(in oklab, #881337 55%, var(--surface));
+  --color-rose-200: color-mix(in oklab, #9f1239 65%, var(--surface));
+  --color-rose-600: #fb7185;
+  --color-rose-700: #fda4af;
+  --color-rose-800: #fecdd3;
+
+  --color-amber-50: color-mix(in oklab, #451a03 55%, var(--surface));
+  --color-amber-100: color-mix(in oklab, #78350f 55%, var(--surface));
+  --color-amber-200: color-mix(in oklab, #92400e 65%, var(--surface));
+  --color-amber-600: #fbbf24;
+  --color-amber-700: #fcd34d;
+  --color-amber-800: #fde68a;
+
+  --color-sky-50: color-mix(in oklab, #082f49 55%, var(--surface));
+  --color-sky-100: color-mix(in oklab, #0c4a6e 55%, var(--surface));
+  --color-sky-200: color-mix(in oklab, #075985 65%, var(--surface));
+  --color-sky-700: #7dd3fc;
+  --color-sky-900: #bae6fd;
+
+  --color-violet-50: color-mix(in oklab, #2e1065 55%, var(--surface));
+  --color-violet-100: color-mix(in oklab, #4c1d95 55%, var(--surface));
+  --color-violet-700: #c4b5fd;
+  --color-violet-800: #ddd6fe;
+}
+
+/* white surfaces → dark surface (text-white stays white) */
+html[data-mode="dark"] .bg-white { background-color: var(--surface); }
+html[data-mode="dark"] .bg-white\/90 { background-color: color-mix(in oklab, var(--surface) 90%, transparent); }
+html[data-mode="dark"] .bg-white\/70 { background-color: color-mix(in oklab, var(--surface) 70%, transparent); }
+html[data-mode="dark"] .border-white { border-color: var(--surface); }
+html[data-mode="dark"] .shadow-sm,
+html[data-mode="dark"] .shadow-lg,
+html[data-mode="dark"] .shadow-2xl { --tw-shadow-color: rgb(0 0 0 / 0.5); }
+
+/* ---------- Base ---------- */
+html {
+  font-family: var(--font-sans);
+}
+body {
+  background: var(--bg);
+  color: var(--color-slate-800);
+  font-feature-settings: "ss01";
+  transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+.hero-gradient {
+  background-image: linear-gradient(to left, var(--hero-a), var(--hero-b), var(--hero-c));
+}
+
+/* thin scrollbars */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--track) transparent;
+}
+
+input[type="date"],
+input[type="time"],
+input[type="number"] {
+  direction: ltr;
+  text-align: right;
+}
+
+.scroll-x {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.fade-up {
+  animation: fade-up 0.3s ease both;
+}

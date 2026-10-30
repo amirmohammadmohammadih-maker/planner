@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8">
+<title>تنظیمات اتصال | پلنر جامع</title>
+<style>
+  body{margin:0;min-height:100vh;display:flex;align-items:flex-start;justify-content:center;background:#f6f8f4;font-family:Vazirmatn,Tahoma,"Segoe UI",sans-serif;color:#0f172a;padding:28px 0}
+  .c{background:#fff;border:1px solid #d1fae5;border-radius:24px;padding:28px 32px;width:min(560px,92vw);box-shadow:0 10px 30px rgba(4,120,87,.08)}
+  h1{font-size:20px;margin:0 0 6px;color:#064e3b}
+  h2{font-size:14px;margin:22px 0 8px;color:#064e3b}
+  p{font-size:13px;color:#64748b;line-height:1.9;margin:0 0 14px}
+  .msg{border-radius:12px;padding:10px 12px;font-size:12px;margin-bottom:14px;display:none;line-height:1.8}
+  .msg.err{background:#fff1f2;color:#be123c;border:1px solid #fecdd3}
+  .msg.ok{background:#ecfdf5;color:#047857;border:1px solid #a7f3d0}
+  .opt{display:block;border:2px solid #e2e8f0;border-radius:16px;padding:14px 16px;margin-bottom:10px;cursor:pointer;transition:.15s}
+  .opt.active{border-color:#047857;background:#ecfdf5}
+  .opt b{display:block;font-size:14px;margin-bottom:2px}
+  .opt span{font-size:12px;color:#64748b;line-height:1.8}
+  .opt input[type=radio],.opt input[type=checkbox]{margin-left:8px;accent-color:#047857}
+  label.f{display:block;font-size:12px;font-weight:700;color:#475569;margin:10px 0 6px}
+  input.url,input.port{box-sizing:border-box;direction:ltr;text-align:left;border:1px solid #cbd5e1;border-radius:12px;padding:10px 12px;font-size:14px;font-family:inherit;outline:none}
+  input.url{width:100%} input.port{width:110px}
+  input:focus{border-color:#047857;box-shadow:0 0 0 3px #d1fae5}
+  .row{display:flex;gap:8px;margin-top:14px}
+  button{flex:1;background:#047857;color:#fff;border:0;border-radius:12px;padding:11px 16px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit}
+  button.secondary{background:#f1f5f9;color:#0f172a}
+  button.small{flex:0 0 auto;padding:8px 14px;font-size:12px}
+  .addr{display:flex;align-items:center;gap:8px;background:#f1f5f9;border-radius:12px;padding:10px 12px;margin-top:8px}
+  .addr code{flex:1;font-size:15px;font-weight:700;direction:ltr;text-align:left;color:#064e3b;background:none}
+  .links{display:flex;gap:14px;justify-content:center;margin-top:16px;font-size:11px}
+  .links a{color:#047857;cursor:pointer;text-decoration:underline}
+  .hint{font-size:11px;color:#94a3b8;margin-top:10px;line-height:1.8}
+  code{background:#f1f5f9;padding:1px 6px;border-radius:6px;direction:ltr;display:inline-block}
+  .lanbox{border:2px solid #e2e8f0;border-radius:16px;padding:14px 16px}
+  .lanbox.active{border-color:#047857;background:#ecfdf5}
+  .inline{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:8px;font-size:12px;color:#475569}
+</style>
+</head>
+<body>
+  <div class="c">
+    <h1>اتصال پلنر</h1>
+    <p>برنامه می‌تواند کاملاً روی همین کامپیوتر کار کند، یا به سروری که جای دیگری راه انداخته‌اید وصل شود.</p>
+    <div class="msg err" id="msg"></div>
+    <div class="msg ok" id="okmsg"></div>
+
+    <label class="opt" id="optLocal">
+      <input type="radio" name="mode" value="local"><b>💻 روی همین کامپیوتر (پیشنهادی)</b>
+      <span>بدون نیاز به اینترنت، Docker یا سرور. داده‌ها در پوشه‌ی کاربری شما ذخیره می‌شود.</span>
+    </label>
+    <label class="opt" id="optRemote">
+      <input type="radio" name="mode" value="remote"><b>🌐 اتصال به سرور</b>
+      <span>برای همگام‌سازی با گوشی از هر جا. آدرس سرور اینترنتی را وارد کنید.</span>
+      <label class="f" for="url">آدرس سرور</label>
+      <input class="url" id="url" placeholder="https://your-domain.com" spellcheck="false">
+    </label>
+
+    <div class="row">
+      <button id="save">ذخیره و اتصال</button>
+      <button id="back" class="secondary">بازگشت</button>
+    </div>
+
+    <h2>📱 دسترسی گوشی در شبکه‌ی خانگی</h2>
+    <div class="lanbox" id="lanbox">
+      <label style="display:flex;align-items:center;cursor:pointer;font-size:13px;font-weight:700">
+        <input type="checkbox" id="lan"> اجازه بده گوشی (در همین وای‌فای) به این برنامه وصل شود
+      </label>
+      <div class="inline">
+        <span>پورت:</span><input class="port" id="port" type="number" min="1024" max="65535" value="3000">
+        <button class="small" id="applyLan">اعمال</button>
+      </div>
+      <div id="addrs"></div>
+      <div class="hint">این آدرس را در اپ اندروید وارد کن. کامپیوتر باید روشن و گوشی در همان وای‌فای باشد.
+        اگر ویندوز پنجره‌ی «Windows Security Alert» را نشان داد، <b>Allow access</b> را بزن.</div>
+    </div>
+
+    <div class="links">
+      <a id="openData">پوشه‌ی داده‌ها</a>
+      <a id="openLog">فایل لاگ</a>
+      <span id="ver" style="color:#94a3b8"></span>
+    </div>
+    <div class="hint" style="text-align:center">باز کردن این صفحه در هر زمان: <b>Ctrl + ,</b> &nbsp;•&nbsp; تازه‌سازی: <b>F5</b></div>
+  </div>
+  <script>
+    const q = new URLSearchParams(location.search);
+    const $ = (id) => document.getElementById(id);
+    const msg = $("msg"), okmsg = $("okmsg"), url = $("url"), lan = $("lan"), port = $("port"), addrs = $("addrs");
+    const radios = [...document.querySelectorAll('input[name=mode]')];
+    function showErr(t){ okmsg.style.display="none"; msg.textContent=t; msg.style.display="block"; window.scrollTo(0,0); }
+    function showOk(t){ msg.style.display="none"; okmsg.textContent=t; okmsg.style.display="block"; }
+    function paint() {
+      const m = radios.find(r => r.checked)?.value;
+      $("optLocal").classList.toggle("active", m === "local");
+      $("optRemote").classList.toggle("active", m === "remote");
+      $("lanbox").classList.toggle("active", lan.checked);
+    }
+    function paintAddrs(list) {
+      addrs.innerHTML = "";
+      if (!lan.checked) return;
+      if (!list || !list.length) { addrs.innerHTML = '<div class="hint">آدرس شبکه‌ای پیدا نشد (به وای‌فای وصل هستید؟)</div>'; return; }
+      for (const a of list) {
+        const d = document.createElement("div"); d.className = "addr";
+        d.innerHTML = '<code></code><button class="small secondary">کپی</button>';
+        d.querySelector("code").textContent = a;
+        d.querySelector("button").onclick = () => { navigator.clipboard.writeText(a); showOk("کپی شد: " + a); };
+        addrs.appendChild(d);
+      }
+    }
+    radios.forEach(r => r.addEventListener("change", paint));
+    lan.addEventListener("change", () => { paint(); paintAddrs(window.__addrs); });
+    url.addEventListener("focus", () => { radios[1].checked = true; paint(); });
+    if (q.get("m")) showErr(q.get("m"));
+    (async () => {
+      const s = await window.plannerDesktop.getSettings();
+      url.value = q.get("url") || s.url || "";
+      const mode = q.get("mode") || s.mode || "local";
+      (radios.find(r => r.value === mode) || radios[0]).checked = true;
+      lan.checked = !!s.lan; port.value = s.lanPort || 3000;
+      window.__addrs = s.lanAddresses || [];
+      $("ver").textContent = "نسخه " + s.version;
+      paint(); paintAddrs(window.__addrs);
+    })();
+    $("save").onclick = async () => {
+      const m = radios.find(r => r.checked)?.value;
+      msg.style.display = "none";
+      const r = m === "remote" ? await window.plannerDesktop.useRemote(url.value) : await window.plannerDesktop.useLocal();
+      if (r && r.ok === false) showErr(r.error);
+    };
+    $("applyLan").onclick = async () => {
+      $("applyLan").disabled = true;
+      const r = await window.plannerDesktop.setLan({ lan: lan.checked, lanPort: Number(port.value) });
+      $("applyLan").disabled = false;
+      if (r && r.ok === false) return showErr(r.error);
+      window.__addrs = r.addresses || [];
+      paintAddrs(window.__addrs);
+      showOk(lan.checked ? "فعال شد. سرور در حال راه‌اندازی مجدد است…" : "دسترسی شبکه خاموش شد.");
+    };
+    $("back").onclick = () => window.plannerDesktop.back();
+    $("openData").onclick = () => window.plannerDesktop.openDataFolder();
+    $("openLog").onclick = () => window.plannerDesktop.openLog();
+    url.addEventListener("keydown", e => e.key === "Enter" && $("save").click());
+  </script>
+</body>
+</html>

@@ -1,0 +1,20 @@
+{
+  "appId": "ir.planner.app",
+  "appName": "پلنر جامع",
+  "webDir": "www",
+  "backgroundColor": "#f6f8f4",
+  "appendUserAgent": "PlannerApp/1.1",
+  "loggingBehavior": "none",
+  "server": {
+    "cleartext": true,
+    "allowNavigation": ["*"]
+  },
+  "android": {
+    "allowMixedContent": true,
+    "backgroundColor": "#f6f8f4"
+  },
+  "ios": {
+    "contentInset": "automatic",
+    "backgroundColor": "#f6f8f4"
+  }
+}
